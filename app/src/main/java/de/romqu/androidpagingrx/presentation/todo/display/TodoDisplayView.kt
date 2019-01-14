@@ -20,12 +20,13 @@ class TodoDisplayView {
             val callback: ItemKeyedDataSource.LoadCallback<TodoEntity>
         ) : Event()
 
-        class OnRefresh : Event()
+        class OnRefresh(val todoDisplayAdapter: TodoDisplayAdapter) : Event()
 
     }
 
     data class State(
-        val isRefreshing: Boolean = false
+        val isRefreshing: Boolean = false,
+        val renderEvent: RenderEvent = RenderEvent.None
     )
 
     sealed class RenderEvent {
@@ -34,7 +35,7 @@ class TodoDisplayView {
 
         object None : RenderEvent()
 
-        object StopRefresh: RenderEvent()
+        object StopRefresh : RenderEvent()
 
         class UpdateItemList(
             val pagedList: PagedList<TodoEntity>

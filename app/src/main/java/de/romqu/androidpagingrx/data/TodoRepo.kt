@@ -1,16 +1,27 @@
 package de.romqu.androidpagingrx.data
 
-class TodoRepo {
+import de.romqu.androidpagingrx.common.extension.asSingleFromCallable
+import de.romqu.androidpagingrx.common.extension.toSingleResult
+import de.romqu.androidpagingrx.core.Result
+import io.reactivex.Single
+import javax.inject.Inject
+import javax.inject.Singleton
 
-    fun getAll() =
+@Singleton
+class TodoRepo @Inject constructor() {
 
-        LongRange(0, 20)
-            .map {
+    fun getAll(key: Long, limit: Long): Single<Result<List<TodoEntity>>> {
+
+        Thread.sleep(2000)
+
+        return LongRange(key, key + limit)
+            .map { idLong: Long ->
                 TodoEntity(
-                    id = TodoId(it),
-                    text = it.toString()
+                    id = TodoId(idLong),
+                    text = idLong.toString()
                 )
-            }
+            }.toSingleResult()
+    }
 
 
 }

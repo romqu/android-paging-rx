@@ -8,9 +8,11 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import de.romqu.androidpagingrx.R
 import de.romqu.androidpagingrx.data.TodoEntity
+import de.romqu.androidpagingrx.presentation.todo.TodoScope
 import kotlinx.android.synthetic.main.item_todo_display.view.*
 import javax.inject.Inject
 
+@TodoScope
 class TodoDisplayAdapter @Inject constructor(
 ) : PagedListAdapter<TodoEntity, ViewHolder>(DIFF_CALLBACK) {
 
@@ -41,7 +43,7 @@ class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     fun bind(todoEntity: TodoEntity) {
 
         with(todoEntity) {
-            itemView.textViewJobAdList.text = text
+            itemView.todoDisplayTextView.text = text
         }
     }
 }
