@@ -155,6 +155,4 @@ class TodoDisplayViewModel @Inject constructor(
 
             viewState
         }.toObservable()
-
-
 }

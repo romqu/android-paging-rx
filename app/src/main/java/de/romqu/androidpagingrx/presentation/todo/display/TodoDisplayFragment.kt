@@ -2,7 +2,6 @@ package de.romqu.androidpagingrx.presentation.todo.display
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -47,7 +46,7 @@ class TodoDisplayFragment : Fragment() {
 
     private val subs = CompositeDisposable()
 
-    private val component by lazy {
+    private val component by lazy(LazyThreadSafetyMode.NONE) {
 
         appComponent()
             .todoComponentBuilder()
@@ -67,8 +66,6 @@ class TodoDisplayFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         super.onCreateView(inflater, container, savedInstanceState)
-
-
 
         return inflater.inflate(
             R.layout.fragment_todo_display,
@@ -137,14 +134,13 @@ class TodoDisplayFragment : Fragment() {
             TodoDisplayView.RenderEvent.Init ->
                 init()
 
-            is TodoDisplayView.RenderEvent.UpdateItemList -> {
+            is TodoDisplayView.RenderEvent.UpdateItemList ->
                 updateItemList(viewState.renderEvent)
-            }
 
 
-            TodoDisplayView.RenderEvent.StopRefresh -> {
+            TodoDisplayView.RenderEvent.StopRefresh ->
                 stopRefreshEvent(viewState)
-            }
+
 
             TodoDisplayView.RenderEvent.None -> Unit
 
@@ -153,10 +149,7 @@ class TodoDisplayFragment : Fragment() {
 
     }
 
-    private fun init() {
-
-    }
-
+    private fun init() {}
 
     private fun updateItemList(renderEvent: TodoDisplayView.RenderEvent.UpdateItemList) {
 
